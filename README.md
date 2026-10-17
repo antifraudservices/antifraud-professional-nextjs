@@ -8,6 +8,12 @@ configure organizations, employees, departments, groups and reusable group
 authorizations in the controller portal. This role portal consumes only
 trusted, server-resolved authorization and performs education subject work.
 
+This repository is not a generic portal for animal-sector work. Animal
+workflows remain in the existing multisector VetChain professional portal,
+whose home is specialized by active sector and professional role. Both portals
+may reuse the product-neutral components from
+`antifraud-portal-components-react`.
+
 ## Intended public scope
 
 - create or update an authorized learner record;
