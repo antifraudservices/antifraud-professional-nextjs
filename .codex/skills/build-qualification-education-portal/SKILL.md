@@ -35,6 +35,25 @@ source-issuer credential. Only the standardized age-over-18 element may be
 labelled as the corresponding European Digital Identity Wallet Person
 Identification Data attribute; other thresholds remain governed predicates.
 
+Implement the education Clearing House work inbox as well as evidence
+creation. An authorized employee may list only items assigned to the exact
+active group, retrieve evidence only under separate policy, compare it with
+authoritative issuer records, prepare a decision, obtain approval when policy
+requires it and submit only the action granted to that employee. Preserve
+confirmation, rejection, revocation and linking of an authentic issuer
+credential as distinct issuer-owned outcomes.
+
+The browser never discovers hosts or Fabric channels. The trusted backend asks
+the issuer's home host, which performs exact authenticated discovery against
+approved peer-host local indexes. Display delivery receipts and authoritative
+status returned by the backend.
+
+Treat future machine endpoints and artificial-intelligence agents as separate
+registered service principals with bounded assignments, capabilities and audit
+records. They may propose outcomes when authorized but do not inherit
+controller authority or bypass a required human approval. Implement the first
+MVP as a manual human workflow.
+
 Use synthetic learners and evidence. Never commit internal prompts, tenant
 hosts, secrets or real identity documents. Completion requires local unit and
 integration tests plus a real unmocked browser journey with authoritative
