@@ -9,8 +9,7 @@ the distinction between asserted data, reviewed evidence, verification and a
 signed issuer attestation.
 
 Do not add animal-sector profiles here. They belong to the existing multisector
-VetChain professional portal, which may consume the same neutral component
-package.
+professional portal, which may consume the same neutral component package.
 
 Use red-green-refactor TDD. Browser acceptance must cross the real portal,
 backend for frontend, high-level SDK and local gateway with authoritative

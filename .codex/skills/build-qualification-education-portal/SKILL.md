@@ -6,19 +6,19 @@ description: Build or review the public education role portal for learner identi
 # Build Qualification Education Portal
 
 Implement only education role workflows. Controller management belongs to
-`antifraud-controller-nextjs`.
+the separate controller portal.
 
 Do not create a parallel animal portal. Animal-sector roles and sector-specific
-home navigation remain in the existing multisector VetChain professional
-portal. Reuse shared Antifraud components in either host without moving host
-policy into the component package.
+home navigation remain in the existing multisector professional portal. Reuse
+shared neutral components in either host without moving host policy into the
+component package.
 
 Before coding, inspect the current exports and tests in:
 
-- `antifraud-portal-components-react`
-- `antifraud-data-utils-ts`
-- `antifraud-sdk-core-ts`
-- `antifraud-sdk-node-ts`
+- the shared portal component package;
+- the shared data-contract package;
+- the runtime-neutral orchestration SDK; and
+- the trusted server SDK.
 
 Reuse published contracts; do not copy literals or add local package links to
 a releasable branch. If a required package is unpublished, prove it with an
