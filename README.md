@@ -3,16 +3,15 @@
 Public role-portal scaffold for education qualification and identity-evidence
 workflows.
 
-This application is separate from `antifraud-controller-nextjs`. Controllers
-configure organizations, employees, departments, groups and reusable group
-authorizations in the controller portal. This role portal consumes only
-trusted, server-resolved authorization and performs education subject work.
+This application is separate from the controller portal. Controllers configure
+organizations, employees, departments, groups and reusable group
+authorizations there. This role portal consumes only trusted, server-resolved
+authorization and performs education subject work.
 
 This repository is not a generic portal for animal-sector work. Animal
-workflows remain in the existing multisector VetChain professional portal,
-whose home is specialized by active sector and professional role. Both portals
-may reuse the product-neutral components from
-`antifraud-portal-components-react`.
+workflows remain in the existing multisector professional portal, whose home is
+specialized by active sector and professional role. Both portals may reuse the
+same product-neutral component package.
 
 ## Intended public scope
 
@@ -23,9 +22,9 @@ may reuse the product-neutral components from
   from source-issuer credentials; and
 - display authoritative status and proof references returned by the backend.
 
-The portal must reuse `antifraud-portal-components-react`,
-`antifraud-data-utils-ts` and the high-level Antifraud SDK. It must not copy
-authority logic into the browser or duplicate shared contract literals.
+The portal must reuse the shared component package, data contracts and
+high-level SDK. It must not copy authority logic into the browser or duplicate
+shared contract literals.
 
 ## Status
 
@@ -41,4 +40,4 @@ details. Use synthetic fixtures only.
 
 ## Licence
 
-Copyright 2026 Antifraud Services Inc. Licensed under Apache-2.0.
+Licensed under Apache-2.0.
