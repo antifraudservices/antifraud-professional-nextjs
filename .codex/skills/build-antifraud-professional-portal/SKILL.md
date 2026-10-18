@@ -59,16 +59,28 @@ never signatures.
 Use synthetic subjects and evidence. Never commit internal prompts, tenant
 hosts, secrets or real identity documents. Use red-green-refactor TDD.
 
-Environment acceptance is fixed:
+Environment acceptance for the focused MVP is fixed:
 
-1. automated component and application tests may use immediate in-memory
-   adapters;
-2. an explicitly configured staging demo uses the same portal-to-gateway path
-   with a fixed six-second in-memory Fabric simulation;
-3. an interactively run local portal uses real `local-network` Fabric and must
-   prove a real transaction plus authoritative readback after restart; and
-4. Test Network and production always use real Fabric and reject demo mode.
+1. Demo is the only executable profile and uses the normal portal → BFF →
+   high-level SDK → gateway path with the fixed six-second in-memory Fabric
+   simulation;
+2. Demo preserves the same UI, options, controlled components, validation and
+   business flows intended for future Test Network use;
+3. Test Network is visible but disabled until the project owner supplies
+   Kubernetes, endpoints, credentials and configuration; and
+4. Production is visible and disabled.
+
+Reuse the existing trusted BFF/gateway collection-prefix resolver. React never
+supplies a prefix or environment authority, and tests prove Demo cannot access
+Test Network or Production namespaces.
 
 Mocks may isolate units but never prove the workflow. Completion requires a
 real browser, backend for frontend, high-level SDK, gateway and authoritative
-readback for each required environment gate.
+Demo readback. Kubernetes, local-network Fabric and Test Network deployment
+are later work and do not block the Demo MVP.
+
+When preparing Firebase App Hosting, never request or commit a service-account
+key. The project owner authorizes the official Firebase GitHub application and
+selects project, region, backend and branch. Use Application Default
+Credentials for Firebase Admin/Firestore and Secret Manager references for
+secrets. Verify each persistence adapter and its tests before claiming support.

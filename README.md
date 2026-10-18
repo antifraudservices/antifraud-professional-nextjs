@@ -79,19 +79,30 @@ test-driven and must not claim completion from mock data or screenshots.
 ## Network profiles and acceptance
 
 - Component and application tests may use immediate in-memory adapters.
-- An explicitly enabled staging demo uses the normal portal, backend,
-  high-level SDK and gateway routes with an in-memory Fabric adapter that waits
-  six seconds for each simulated ledger operation.
-- An interactively run local portal uses real `local-network` Fabric. Its
-  browser journey must return a real transaction identifier and complete
-  authoritative readback after gateway, peer and chaincode restart.
-- Test Network and production use their real Fabric adapters. The staging demo
-  adapter is forbidden in both environments.
+- Demo is the only executable MVP profile. It uses the normal portal, BFF,
+  high-level SDK and gateway routes with the in-memory Fabric adapter and its
+  six-second simulated confirmation.
+- Test Network is visible but disabled until the project owner supplies
+  Kubernetes, endpoints, credentials and configuration.
+- Production is visible and disabled.
 
 The browser never chooses an adapter, network, zone, channel or chaincode. The
-trusted gateway selects them from immutable deployment configuration. Staging
-must visibly identify simulated operations, which never count as Test Network
-or production evidence.
+trusted gateway selects them from immutable server configuration. Demo uses
+the same components, options, validation and business flows designed for Test
+Network, but visibly identifies every simulated operation. BFF and gateway
+reuse their configured collection-prefix resolver; React never supplies a
+prefix, and Demo cannot access Test Network or Production namespaces.
+
+For Firebase App Hosting, the project owner—not Bolt—authorizes the official
+Firebase GitHub application and chooses the Firebase project, region, backend
+and live branch. Never paste or commit a service-account key. Runtime Firebase
+Admin/Firestore uses Application Default Credentials, and Secret Manager names
+may be referenced from `apphosting.yaml`. Prefer Firestore for the hosted Demo;
+PostgreSQL plus local IPFS is the verified self-hosted profile. Supabase is
+currently a blob adapter and MongoDB is not wired as the current vault
+repository, so neither is claimed as a complete database profile.
+
+Implementation is tracked in [Demo environment issue #2](https://github.com/antifraudservices/antifraud-professional-nextjs/issues/2).
 
 ## Public-repository boundary
 
