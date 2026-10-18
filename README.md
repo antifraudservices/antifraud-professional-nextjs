@@ -37,6 +37,11 @@ batch for exchanges with individuals and other professionals. Its protected
 business attachment is a JSON:API primary document containing one or more
 Schema.org `DigitalDocument` and `MediaObject` resources, not a clinical
 Bundle. One immutable manifest may cover one file or a governed set of files.
+The file bytes themselves travel through DIDComm `attachments[]`, inline under
+the governed limit or by protected `links + hash`. This applies to PDF, Excel,
+Word, image, video and every other permitted media type. The panel must never
+label or serialize an attachment as FHIR `DocumentReference`. Implementation
+is tracked in [GitHub issue #1](https://github.com/antifraudservices/antifraud-professional-nextjs/issues/1).
 
 Reuse the wallet, cryptography, secure-message and managed-profile behavior
 already implemented in the shared core and Node.js SDKs. Do not recreate key

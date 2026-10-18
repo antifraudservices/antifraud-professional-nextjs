@@ -40,6 +40,12 @@ professional inbox exchanges the governed encrypted Communication collection
 or batch and protected JSON:API documents with individuals and other
 professionals; do not substitute a clinical Bundle.
 
+Document panels use Schema.org `DigitalDocument`/`MediaObject`, never FHIR
+`DocumentReference`. PDF, spreadsheet, Word, image, video and other governed
+bytes travel only in DIDComm `attachments[]`, inline or by protected
+reference, using the exact released data-utils and SDK contracts. Follow
+GitHub issue `antifraud-professional-nextjs#1`.
+
 Dynamic Client Registration publishes separate ML-KEM-768 communication and
 policy-required ML-DSA-65 signing public keys. Private keys stay protected in
 the wallet. Cloud signing requires local biometric unlock when available, with
