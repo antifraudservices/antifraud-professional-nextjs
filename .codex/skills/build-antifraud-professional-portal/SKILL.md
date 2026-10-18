@@ -66,18 +66,21 @@ Environment acceptance for the focused MVP is fixed:
    simulation;
 2. Demo preserves the same UI, options, controlled components, validation and
    business flows intended for future Test Network use;
-3. Test Network is visible but disabled until the project owner supplies
-   Kubernetes, endpoints, credentials and configuration; and
+3. Test Network is visible but disabled during Demo/local acceptance and is
+   enabled only after the affected real local-network gate, cumulative package
+   release, endpoints, credentials and server configuration are complete; and
 4. Production is visible and disabled.
 
 Reuse the existing trusted BFF/gateway collection-prefix resolver. React never
 supplies a prefix or environment authority, and tests prove Demo cannot access
 Test Network or Production namespaces.
 
-Mocks may isolate units but never prove the workflow. Completion requires a
+Mocks may isolate units but never prove the workflow. Demo completion requires a
 real browser, backend for frontend, high-level SDK, gateway and authoritative
-Demo readback. Kubernetes, local-network Fabric and Test Network deployment
-are later work and do not block the Demo MVP.
+Demo readback. Package publication requires the affected real local-network
+ledger write and authoritative readback as well. Test Network follows that
+cumulative release; its initial single-orderer profile is non-HA and is never
+production evidence.
 
 When preparing Firebase App Hosting, never request or commit a service-account
 key. The project owner authorizes the official Firebase GitHub application and
