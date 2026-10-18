@@ -84,3 +84,13 @@ key. The project owner authorizes the official Firebase GitHub application and
 selects project, region, backend and branch. Use Application Default
 Credentials for Firebase Admin/Firestore and Secret Manager references for
 secrets. Verify each persistence adapter and its tests before claiming support.
+
+Before implementing Google login, read `docs/BETA_FIREBASE_AUTH.md`. Enabling
+the provider is only one gate: use this portal's distinct web-app registration,
+authorize `localhost` plus every deployed Beta domain, validate the exact
+Firebase issuer and audience in the BFF, and apply employee/group/capability
+authorization separately. Choose either the Auth Emulator or live local Google
+login. Preserve popup behavior with COOP `same-origin-allow-popups` where
+needed and no global COEP `require-corp`. The Foundation is a bounded tenant of
+`host-beta.antifraud.services`; its person-index bindings are under
+`antifraud.online` and are never selected by React.

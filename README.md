@@ -102,6 +102,12 @@ PostgreSQL plus local IPFS is the verified self-hosted profile. Supabase is
 currently a blob adapter and MongoDB is not wired as the current vault
 repository, so neither is claimed as a complete database profile.
 
+Enabling Google alone is not enough for local or hosted login. Register this
+portal's Firebase web app, authorize `localhost` and all deployed Beta origins,
+provide only public browser configuration, verify the ID token in the BFF and
+preserve popup-compatible headers. Follow the exact
+[Beta Firebase authentication handoff](docs/BETA_FIREBASE_AUTH.md).
+
 Implementation is tracked in [Demo environment issue #2](https://github.com/antifraudservices/antifraud-professional-nextjs/issues/2).
 
 ## Public-repository boundary
