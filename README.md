@@ -30,6 +30,37 @@ only work assigned through the employee's active organization, assignment,
 group membership and reusable group authorization. It never lets an employee
 grant their own capability or browse Fabric channels.
 
+## Encrypted communications and document signatures
+
+The professional inbox uses the governed encrypted Communication collection or
+batch for exchanges with individuals and other professionals. Its protected
+business attachment is a JSON:API primary document containing one or more
+Schema.org `DigitalDocument` and `MediaObject` resources, not a clinical
+Bundle. One immutable manifest may cover one file or a governed set of files.
+
+Reuse the wallet, cryptography, secure-message and managed-profile behavior
+already implemented in the shared core and Node.js SDKs. Do not recreate key
+generation, encryption, signing, canonicalization, wallet custody or session
+security in React components or portal-local utilities. The portal integration
+must pin the reviewed SDK versions and prove the existing contracts through
+its backend-for-frontend boundary.
+
+Dynamic Client Registration publishes distinct device public keys: ML-KEM-768
+for communication encryption and, when document policy requires it, ML-DSA-65
+for manifest signing. Private keys remain protected by the wallet. For a cloud
+wallet, signing requires biometric unlock when the device supports it, with a
+governed PIN or password fallback. The local ceremony authorizes only a short,
+user-bound, device-bound and operation-bound backend-for-frontend session. The
+backend uses the managed wallet through the high-level SDK and returns only the
+proof and receipt; lock, expiry, cancellation or binding failure destroys the
+unlocked session.
+
+A delivery receipt, read state, authenticated session or UI action is not a
+signature. The proof binds the immutable manifest and exact document versions,
+the natural signer, purpose, signing time and verification method. Natural
+signer, represented organization, employee assignment and delivery actor remain
+separate.
+
 The portal must reuse the shared component package, data contracts and
 high-level SDK. It must not copy authority logic into the browser or duplicate
 shared contract literals.
