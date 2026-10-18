@@ -33,6 +33,23 @@ authoritative issuer records and submits only the granted action. Confirmation,
 rejection, revocation and an authentic issuer credential remain distinct
 issuer-owned outcomes.
 
+Reuse the secure-message, wallet and managed-profile security already
+implemented by the shared core and Node.js SDKs. Do not implement cryptography,
+canonicalization, private-key custody or wallet unlocking in React. The
+professional inbox exchanges the governed encrypted Communication collection
+or batch and protected JSON:API documents with individuals and other
+professionals; do not substitute a clinical Bundle.
+
+Dynamic Client Registration publishes separate ML-KEM-768 communication and
+policy-required ML-DSA-65 signing public keys. Private keys stay protected in
+the wallet. Cloud signing requires local biometric unlock when available, with
+a governed PIN or password fallback. It authorizes only a short-lived,
+user-bound, device-bound and operation-bound backend-for-frontend session. The
+backend invokes the managed wallet through the high-level SDK and returns only
+the proof and receipt. Lock, expiry, cancellation or binding failure destroys
+the unlocked session. Authentication, delivery, read state and a UI action are
+never signatures.
+
 Use synthetic subjects and evidence. Never commit internal prompts, tenant
 hosts, secrets or real identity documents. Use red-green-refactor TDD.
 
