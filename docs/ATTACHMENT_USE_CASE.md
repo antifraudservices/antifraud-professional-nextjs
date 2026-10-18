@@ -1,5 +1,10 @@
 # Professional attachment use case
 
+The authenticated actor prerequisite is defined in
+[`BETA_FIREBASE_AUTH.md`](BETA_FIREBASE_AUTH.md). Google login authenticates the
+employee but does not grant document retrieval, review, issuer or signing
+authority.
+
 The professional panel presents Schema.org `DigitalDocument` and `MediaObject`
 records. It never presents or serializes a FHIR `DocumentReference`.
 
