@@ -1,6 +1,6 @@
 # Antifraud Professional Portal
 
-Public professional role-portal scaffold for Antifraud workflows. Education
+Public professional role portal for Antifraud workflows. Education
 and training is the first bounded profile; later professional domains may be
 added without creating a separate portal for each qualification sector.
 
@@ -72,9 +72,13 @@ shared contract literals.
 
 ## Status
 
-Scaffold only. No application code, authentication, persistence, gateway
-integration or executable user journey exists yet. The implementation must be
-test-driven and must not claim completion from mock data or screenshots.
+The preliminary Next.js workspace is executable. Its BFF uses the high-level
+Node SDK to load only Gateway references addressed to the fixed professional
+actor and to submit confirmed or rejected issuer decisions without accepting
+browser-authored organization, tenant or ledger authority. The complete
+Controller-to-Professional synthetic education journey is exercised in the
+Controller portal's real browser suite. Authentication and broader learner,
+communication and wallet journeys remain deferred and are not simulated.
 
 ## Network profiles and acceptance
 
@@ -82,8 +86,10 @@ test-driven and must not claim completion from mock data or screenshots.
 - Demo is the only executable MVP profile. It uses the normal portal, BFF,
   high-level SDK and gateway routes with the in-memory Fabric adapter and its
   six-second simulated confirmation.
-- Test Network is visible but disabled until the project owner supplies
-  Kubernetes, endpoints, credentials and configuration.
+- Test Network is visible but disabled until the separately operated Fabric
+  topology and service endpoints are deployed and configured. Kubernetes is
+  not a prerequisite for this Beta Demo or for a later single-orderer Test
+  Network; Production redundancy remains a separate gate.
 - Production is visible and disabled.
 
 The browser never chooses an adapter, network, zone, channel or chaincode. The
