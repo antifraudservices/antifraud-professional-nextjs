@@ -8,3 +8,9 @@ test-results/
 playwright-report/
 *.log
 *.tsbuildinfo
+.next/
+node_modules/
+test-results/
+screenshots/
+.env*
+!.env.example
