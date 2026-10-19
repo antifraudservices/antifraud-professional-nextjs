@@ -17,10 +17,34 @@ type InboxItem = Readonly<{
   queuedAt: string
 }>
 
+type EvidenceDetail = Readonly<{
+  evidenceLocator: string
+  confidentialClaims: Readonly<Record<string, unknown>>
+}>
+
+function classificationFrom(detail: EvidenceDetail | undefined): Readonly<{
+  system: string; version?: string; uri?: string; code: string; display?: string
+}> | undefined {
+  const qualification = detail?.confidentialClaims.qualification
+  if (!qualification || typeof qualification !== 'object' || Array.isArray(qualification)) return undefined
+  const classification = (qualification as Record<string, unknown>).classification
+  if (!classification || typeof classification !== 'object' || Array.isArray(classification)) return undefined
+  const value = classification as Record<string, unknown>
+  if (typeof value.system !== 'string' || typeof value.code !== 'string') return undefined
+  return {
+    system: value.system,
+    code: value.code,
+    ...(typeof value.version === 'string' ? {version: value.version} : {}),
+    ...(typeof value.uri === 'string' ? {uri: value.uri} : {}),
+    ...(typeof value.display === 'string' ? {display: value.display} : {}),
+  }
+}
+
 export function ProfessionalWorkspace({environment}: Readonly<{environment: Environment}>) {
   const [view, setView] = useState<'evidence' | 'inbox'>('evidence')
   const [status, setStatus] = useState('Ready for a synthetic education-evidence task.')
   const [items, setItems] = useState<readonly InboxItem[]>([])
+  const [details, setDetails] = useState<Readonly<Record<string, EvidenceDetail>>>({})
   const [loadingInbox, setLoadingInbox] = useState(false)
 
   const loadInbox = useCallback(async () => {
@@ -37,6 +61,18 @@ export function ProfessionalWorkspace({environment}: Readonly<{environment: Envi
       setLoadingInbox(false)
     }
   }, [])
+
+  async function openEvidence(item: InboxItem) {
+    setStatus('Opening confidential evidence…')
+    const response = await fetch(`/api/inbox/${encodeURIComponent(item.evidenceLocator)}`, {cache: 'no-store'})
+    const payload = await response.json() as EvidenceDetail & {error?: string}
+    if (!response.ok) {
+      setStatus(payload.error ?? 'Confidential evidence failed.')
+      return
+    }
+    setDetails(current => ({...current, [item.evidenceLocator]: payload}))
+    setStatus('Confidential evidence opened for the addressed issuer.')
+  }
 
   useEffect(() => {
     if (view === 'inbox') void loadInbox()
@@ -68,7 +104,11 @@ export function ProfessionalWorkspace({environment}: Readonly<{environment: Envi
     </aside>
     <main>
       <div className="demo-banner"><strong>Demo — simulated blockchain</strong><span>The BFF uses the same high-level SDK and Gateway contract intended for Test Network.</span></div>
-      {view === 'evidence' ? <section><h1>Education evidence</h1><p>Review a synthetic qualification attachment, record the employer attestation and preserve the source issuer as a separate authority.</p><dl><div><dt>Document model</dt><dd>Schema.org DigitalDocument / MediaObject</dd></div><div><dt>Binary transport</dt><dd>DIDComm attachment</dd></div><div><dt>Ledger content</dt><dd>Minimized anchor only</dd></div></dl><button onClick={() => setStatus('Synthetic evidence prepared; signing requires the managed-wallet BFF session.')}>Prepare synthetic evidence</button></section> : <section><h1>Issuer inbox</h1><p>Only references addressed to the authenticated organization appear here.</p>{loadingInbox && items.length === 0 ? <div className="empty">Loading addressed references…</div> : items.length === 0 ? <div className="empty">No addressed references.</div> : <div className="inbox-list">{items.map(item => <article key={item.evidenceLocator} aria-label={item.evidenceLocator} className="inbox-item"><h2>{item.evidenceLocator}</h2><dl><div><dt>Status</dt><dd>{item.lifecycleStatus}</dd></div><div><dt>Delivery</dt><dd>{item.deliveryState}</dd></div><div><dt>Domain</dt><dd>{item.channelFamily}</dd></div></dl>{item.lifecycleStatus === 'pending-issuer-confirmation' && <div className="actions"><button onClick={() => void decide(item, 'confirmed')}>Confirm evidence</button><button className="secondary" onClick={() => void decide(item, 'rejected')}>Reject evidence</button></div>}</article>)}</div>}</section>}
+      {view === 'evidence' ? <section><h1>Education evidence</h1><p>Review a synthetic qualification attachment, record the employer attestation and preserve the source issuer as a separate authority.</p><dl><div><dt>Document model</dt><dd>Schema.org DigitalDocument / MediaObject</dd></div><div><dt>Binary transport</dt><dd>DIDComm attachment</dd></div><div><dt>Ledger content</dt><dd>Minimized anchor only</dd></div></dl><button onClick={() => setStatus('Synthetic evidence prepared; signing requires the managed-wallet BFF session.')}>Prepare synthetic evidence</button></section> : <section><h1>Issuer inbox</h1><p>Only references addressed to the authenticated organization appear here.</p>{loadingInbox && items.length === 0 ? <div className="empty">Loading addressed references…</div> : items.length === 0 ? <div className="empty">No addressed references.</div> : <div className="inbox-list">{items.map(item => {
+        const detail = details[item.evidenceLocator]
+        const classification = classificationFrom(detail)
+        return <article key={item.evidenceLocator} aria-label={item.evidenceLocator} className="inbox-item"><h2>{item.evidenceLocator}</h2><dl><div><dt>Status</dt><dd>{item.lifecycleStatus}</dd></div><div><dt>Delivery</dt><dd>{item.deliveryState}</dd></div><div><dt>Domain</dt><dd>{item.channelFamily}</dd></div></dl><button className="secondary" onClick={() => void openEvidence(item)}>Open evidence</button>{classification ? <div className="qualification-detail" aria-label="Qualification classification"><h3>{classification.display ?? classification.code}</h3><p>Employer-reviewed evidence; issuer decision pending.</p><dl><div><dt>System</dt><dd>{classification.system}</dd></div><div><dt>Version</dt><dd>{classification.version ?? 'Unversioned'}</dd></div>{classification.uri ? <div><dt>URI</dt><dd>{classification.uri}</dd></div> : null}<div><dt>Code</dt><dd>{classification.code}</dd></div></dl></div> : null}{item.lifecycleStatus === 'pending-issuer-confirmation' && detail ? <div className="actions"><button onClick={() => void decide(item, 'confirmed')}>Confirm evidence</button><button className="secondary" onClick={() => void decide(item, 'rejected')}>Reject evidence</button></div> : null}</article>
+      })}</div>}</section>}
       <p role="status" className="status">{status}</p>
     </main>
   </div>

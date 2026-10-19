@@ -72,10 +72,12 @@ shared contract literals.
 
 ## Status
 
-The preliminary Next.js workspace is executable. Its BFF uses the high-level
-Node SDK to load only Gateway references addressed to the fixed professional
-actor and to submit confirmed or rejected issuer decisions without accepting
-browser-authored organization, tenant or ledger authority. The complete
+The Next.js workspace is executable. Its BFF uses the high-level Node SDK to
+load only Gateway references addressed to the fixed professional actor, open
+their wallet-sealed confidential employer evidence, display the canonical
+qualification classification and submit confirmed or rejected issuer
+decisions without accepting browser-authored organization, tenant or ledger
+authority. The complete
 Controller-to-Professional synthetic education journey is exercised in the
 Controller portal's real browser suite. Authentication and broader learner,
 communication and wallet journeys remain deferred and are not simulated.
