@@ -4,6 +4,11 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+- Open an addressed confidential evidence item through the BFF and high-level
+  SDK before an issuer decision. The portal displays the canonical
+  qualification system, version, URI and code, labels the employer statement
+  as pending issuer verification and keeps decision authority separate.
+
 - Add the executable professional workspace, server-owned environment profile,
   addressed Gateway inbox and issuer decision BFF routes.
 - Add Firebase App Hosting source configuration with a server-only professional

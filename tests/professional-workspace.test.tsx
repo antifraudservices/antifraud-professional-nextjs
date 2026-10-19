@@ -13,8 +13,22 @@ describe('Professional workspace', () => {
       deliveryState: 'queued', channelFamily: 'qualification-education', queuedAt: '2026-10-18T00:00:00.000Z',
     }
     const confirmed = {...pending, lifecycleStatus: 'confirmed', deliveryState: 'delivered'}
+    const detail = {
+      evidenceLocator: pending.evidenceLocator,
+      confidentialClaims: {
+        qualification: {classification: {
+          system: 'urn:antifraud:terminology:synthetic:education-qualification',
+          version: 'demo-2026-10',
+          uri: 'urn:antifraud:qualification:synthetic-bachelor-001',
+          code: 'synthetic-bachelor-001',
+          display: 'Synthetic bachelor-level qualification',
+        }},
+        assertionKind: 'employer-attestation',
+      },
+    }
     const fetchMock = vi.fn()
       .mockResolvedValueOnce(Response.json({items: [pending]}))
+      .mockResolvedValueOnce(Response.json(detail))
       .mockResolvedValueOnce(Response.json({status: 'confirmed', transactionId: 'virtual-demo:001'}))
       .mockResolvedValueOnce(Response.json({items: [confirmed]}))
     vi.stubGlobal('fetch', fetchMock)
@@ -23,11 +37,16 @@ describe('Professional workspace', () => {
     fireEvent.click(screen.getByRole('button', {name: 'Issuer inbox'}))
 
     expect(await screen.findByRole('article', {name: 'evidence:demo:001'})).toBeVisible()
+    fireEvent.click(screen.getByRole('button', {name: 'Open evidence'}))
+    expect(await screen.findByText('synthetic-bachelor-001')).toBeVisible()
+    expect(screen.getByText('demo-2026-10')).toBeVisible()
+    expect(screen.getByText('Employer-reviewed evidence; issuer decision pending.')).toBeVisible()
     fireEvent.click(screen.getByRole('button', {name: 'Confirm evidence'}))
     await waitFor(() => expect(screen.getByText('confirmed', {exact: true})).toBeVisible())
 
     expect(fetchMock).toHaveBeenNthCalledWith(1, '/api/inbox', expect.objectContaining({cache: 'no-store'}))
-    const decision = fetchMock.mock.calls[1]
+    expect(fetchMock).toHaveBeenNthCalledWith(2, '/api/inbox/evidence%3Ademo%3A001', expect.objectContaining({cache: 'no-store'}))
+    const decision = fetchMock.mock.calls[2]
     expect(decision[0]).toBe('/api/inbox/decision')
     expect(JSON.parse(decision[1].body)).toEqual({
       evidenceLocator: 'evidence:demo:001', decision: 'confirmed', issuerProofReference: 'proof:issuer:evidence:demo:001',
