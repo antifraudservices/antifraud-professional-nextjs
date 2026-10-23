@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "engines": {"node": ">=24"},
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1 --port 3610",
     "build": "next build",
@@ -17,7 +19,8 @@
     "antifraud-sdk-node-ts": "0.2.5",
     "next": "16.4.2",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "uhc-portal-components-react": "0.2.31"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "6.9.1",
