@@ -12,5 +12,6 @@ playwright-report/
 node_modules/
 test-results/
 screenshots/
+snapshots/
 .env*
 !.env.example

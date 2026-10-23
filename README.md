@@ -1,20 +1,26 @@
 # Antifraud Professional Portal
 
-Public professional role portal for Antifraud workflows. Education
-and training is the first bounded profile; later professional domains may be
-added without creating a separate portal for each qualification sector.
+Public, white-label professional role portal for Antifraud workflows across
+reviewed sectors including legal services, accounting, education, insurance
+and other professional services.
 
 This application is separate from the controller portal. Controllers configure
 organizations, employees, departments, groups and reusable group
 authorizations there. This role portal consumes only trusted, server-resolved
-authorization and performs education subject work.
+authorization and performs work for the active reviewed sector profile.
 
 The shared shell is profile-neutral, but every enabled profile keeps its own
-server-owned vocabulary, authorization and home navigation. The first MVP must
-not implement speculative legal, accounting or other profiles.
+server-owned vocabulary and authorization. A profile changes branding and
+available vocabulary; it never grants professional or organization authority.
 
 ## Intended public scope
 
+- manage authorized clients, assigned work, scheduling and secure
+  communications;
+- manage organization Places, public Services and Products through the shared
+  catalog contract, with DCAT publishing details resolved by the backend;
+- request Trust verification of employee email, organization domain and exact
+  received documents without treating the request as a verified result;
 - create or update an authorized learner record;
 - record identity and lawful-representative evidence;
 - request or record governed age predicates;
@@ -72,15 +78,19 @@ shared contract literals.
 
 ## Status
 
-The Next.js workspace is executable. Its BFF uses the high-level Node SDK to
+The Next.js workspace exposes the complete neutral Professional management
+surface: Home, Clients, Work, Scheduling, Catalog, Communications and Trust.
+It uses the Connect Health visual system and a trusted-server
+white-label profile. Its existing BFF continues to use the high-level Node SDK to
 load only Gateway references addressed to the fixed professional actor, open
 their wallet-sealed confidential employer evidence, display the canonical
 qualification classification and submit confirmed or rejected issuer
 decisions without accepting browser-authored organization, tenant or ledger
 authority. The complete
 Controller-to-Professional synthetic education journey is exercised in the
-Controller portal's real browser suite. Authentication and broader learner,
-communication and wallet journeys remain deferred and are not simulated.
+Controller portal's real browser suite. Authentication and the broader client,
+scheduling, catalog, communication, Trust-provider and wallet adapters remain
+deferred and are not simulated.
 
 ## Network profiles and acceptance
 
